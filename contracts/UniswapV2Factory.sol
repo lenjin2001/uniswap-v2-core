@@ -1,16 +1,17 @@
 pragma solidity =0.5.16;
 
-import './interfaces/IUniswapV2Factory.sol';
-import './UniswapV2Pair.sol';
+import './interfaces/IUniswapV2Factory.sol';//导入工厂文件的接口合约
+import './UniswapV2Pair.sol';//导入配对合约
 
+//工厂
 contract UniswapV2Factory is IUniswapV2Factory {
-    address public feeTo;
-    address public feeToSetter;
+    address public feeTo; //收手续费的地址
+    address public feeToSetter; //收手续费的权限控制地址
 
-    mapping(address => mapping(address => address)) public getPair;
-    address[] public allPairs;
+    mapping(address => mapping(address => address)) public getPair;//配对映射,地址=>(地址=>地址)
+    address[] public allPairs; //所有配对的数组
 
-    event PairCreated(address indexed token0, address indexed token1, address pair, uint);
+    event PairCreated(address indexed token0, address indexed token1, address pair, uint);//事件:配对创建
 
     constructor(address _feeToSetter) public {
         feeToSetter = _feeToSetter;
