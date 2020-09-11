@@ -1,18 +1,21 @@
 pragma solidity =0.5.16;
 
-import './interfaces/IUniswapV2Pair.sol';
-import './UniswapV2ERC20.sol';
-import './libraries/Math.sol';
-import './libraries/UQ112x112.sol';
-import './interfaces/IERC20.sol';
-import './interfaces/IUniswapV2Factory.sol';
-import './interfaces/IUniswapV2Callee.sol';
+import './interfaces/IUniswapV2Pair.sol'; //导入接口合约用来调Uniswapv2pair.sol
+import './UniswapV2ERC20.sol'; //导入ERC20
+import './libraries/Math.sol'; //安全数学
+import './libraries/UQ112x112.sol'; //112精度
+import './interfaces/IERC20.sol'; //ERC20的接口合约
+import './interfaces/IUniswapV2Factory.sol'; //V2工厂合约的接口合约
+import './interfaces/IUniswapV2Callee.sol'; //callee.slo的接口，不知道是个啥。
+
+//继承IUniswapV2Pair, UniswapV2ERC20
 
 contract UniswapV2Pair is IUniswapV2Pair, UniswapV2ERC20 {
-    using SafeMath  for uint;
-    using UQ112x112 for uint224;
+    using SafeMath  for uint; //用安全数学创建一个uint变量
+    using UQ112x112 for uint224; // 用精度112创建了一个112精度的变量uint224
 
-    uint public constant MINIMUM_LIQUIDITY = 10**3;
+    uint public constant MINIMUM_LIQUIDITY = 10**3; //定义最小流动性为10的3次方就是1000Wei,这样把做恶成本增加到了10万刀，牛逼的思想。
+    
     bytes4 private constant SELECTOR = bytes4(keccak256(bytes('transfer(address,uint256)')));
 
     address public factory;
